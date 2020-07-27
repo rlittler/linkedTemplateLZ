@@ -1,0 +1,575 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+
+
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Specify a location for the resources."
+      }
+    },
+
+    "templateUri": {
+      "type": "string",
+      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/storageaccount.json"
+    },
+    "templateSas": {
+      "type": "securestring",
+      "defaultValue": "sp=r&st=2020-07-02T09:27:06Z&se=2021-03-10T18:27:06Z&spr=https&sv=2019-10-10&sr=b&sig=AfuQIn6afAHoKW9cnLKm69huNSDo0IrfaWFx3stCsIY%3D"
+
+    },
+
+    "vnettemplateUri": {
+      "type": "string",
+      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/vnet.json"
+    },
+
+    "vnettemplateSas": {
+      "type": "securestring",
+      "defaultValue": "sp=r&st=2020-07-02T09:14:57Z&se=2021-02-06T18:14:57Z&spr=https&sv=2019-10-10&sr=b&sig=N74D3o7K5NBnxtx7KOHihdJMCzGmX5Hk6Ie7Y5rhWEA%3D"
+
+    },
+    "nictemplateUri": {
+      "type": "string",
+      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/nic.json"
+    },
+
+    "nictemplateSas": {
+      "type": "securestring",
+      "defaultValue": "sp=r&st=2020-07-02T11:15:33Z&se=2021-03-31T19:15:33Z&spr=https&sv=2019-10-10&sr=b&sig=R3D%2BwTnXeI77crrG8GIM2hDrHWRcmcL1F%2FYwaeivGUQ%3D"
+
+    },
+
+    "nsgtemplateUri": {
+      "type": "string",
+      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/nsg.json"
+    },
+
+    "nsgtemplateSas": {
+      "type": "securestring",
+      "defaultValue": "sp=r&st=2020-07-07T10:13:44Z&se=2020-08-08T18:13:44Z&spr=https&sv=2019-10-10&sr=b&sig=tipvez8ooDWTLoMNKW%2BtEqYt4a8LGSolVOVhvx6Bvlk%3D"
+
+    },
+
+    "virtualMachinetemplateUri": {
+      "type": "string",
+      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/virtualMachine.json"
+    },
+
+    "virtualMachinetemplateSas": {
+      "type": "securestring",
+      "defaultValue": "sp=r&st=2020-07-08T16:44:30Z&se=2021-01-13T01:44:30Z&spr=https&sv=2019-10-10&sr=b&sig=G0aV3JGdjImQwQ1vH2tAS%2BL0ZSmFGXJJhmvNAggnNPA%3D"
+
+    },
+    "bastiontemplateUri": {
+      "type": "string",
+      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/bastion.json"
+    },
+
+    "bastiontemplateSas": {
+      "type": "securestring",
+      "defaultValue": "sp=r&st=2020-07-09T14:30:35Z&se=2021-02-04T23:30:35Z&spr=https&sv=2019-10-10&sr=b&sig=%2Bfnj1omkYGhem2%2FWoEOhRvXJnJhS3pg87OAzoYZL5pU%3D"
+
+    },
+    "vnetPeeringtemplateUri": {
+      "type": "string",
+      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/vnetPeering.json"
+    },
+    "vnetPeeringtemplateSas": {
+      "type": "securestring",
+      "defaultValue": "sp=r&st=2020-07-27T14:17:28Z&se=2021-06-29T22:17:28Z&spr=https&sv=2019-12-12&sr=b&sig=igfuFdZ%2B4faEgiL8h39paDW6q9q43w0sFF8MrMvkzKg%3D"
+
+    },
+
+
+
+    "projectName": {
+      "type": "string"
+
+    },
+
+    "vnetAddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/16",
+      "metadata": {
+        "description": "Address prefix"
+      }
+    },
+    "hubBastionSubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/24",
+      "metadata": {
+        "description": "Subnet 1 Prefix"
+      }
+    },
+    "hubBastionSubnetName": {
+      "type": "string",
+      "defaultValue": "AzureBastionSubnet",
+      "metadata": {
+        "description": "Subnet 1 Name"
+      }
+    },
+    "hubGatewaySubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.1.0/24",
+      "metadata": {
+        "description": "Subnet 2 Prefix"
+      }
+    },
+    "hubGatewaySubnetName": {
+      "type": "string",
+      "defaultValue": "GatewaySubnet",
+      "metadata": {
+        "description": "Subnet 2 Name"
+      }
+    },
+
+    "hubADSubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.2.0/24",
+      "metadata": {
+        "description": "Subnet 2 Prefix"
+      }
+    },
+    "hubADSubnetName": {
+      "type": "string",
+      "defaultValue": "ADSubnet",
+      "metadata": {
+        "description": "Subnet 2 Name"
+      }
+    },
+    "spoke1AddressPrefix": {
+      "type": "string",
+      "defaultValue": "20.0.0.0/16",
+      "metadata": {
+        "description": "Address prefix"
+      }
+    },
+    "spoke1Subnet1Prefix": {
+      "type": "string",
+      "defaultValue": "20.0.0.0/24",
+      "metadata": {
+        "description": "Subnet 1 Prefix"
+      }
+    },
+    "spoke1Subnet1Name": {
+      "type": "string",
+      "defaultValue": "Workloads001",
+      "metadata": {
+        "description": "Subnet 1 Name"
+      }
+    },
+    "spoke1Subnet2Prefix": {
+      "type": "string",
+      "defaultValue": "20.0.1.0/24",
+      "metadata": {
+        "description": "Subnet 2 Prefix"
+      }
+    },
+    "spoke1Subnet2Name": {
+      "type": "string",
+      "defaultValue": "Workloads002",
+      "metadata": {
+        "description": "Subnet 2 Name"
+      }
+    },
+
+    "spoke1Subnet3Prefix": {
+      "type": "string",
+      "defaultValue": "20.0.2.0/24",
+      "metadata": {
+        "description": "Subnet 2 Prefix"
+      }
+    },
+    "spoke1Subnet3Name": {
+      "type": "string",
+      "defaultValue": "Workloads003",
+      "metadata": {
+        "description": "Subnet 2 Name"
+      }
+    },
+
+    "nsgName": {
+      "type": "string",
+      "defaultValue": "NSG01",
+      "metadata": {
+        "description": "NSG"
+      }
+    },
+
+    "localAdminUsername": {
+      "type": "string",
+      "defaultValue": "sysadmin",
+      "metadata": {
+        "description": "Local Admin Username"
+      }
+    },
+    "localAdminPassword": {
+      "type": "secureString",
+      "metadata": {
+        "description": "Local Admin Password"
+      }
+    },
+
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_DS3_v2",
+      "metadata": {
+        "description": "Virtual Machine Sku"
+      }
+    },
+
+    "virtualMachineSku": {
+      "type": "string",
+      "defaultValue": "2016-Datacenter",
+      "metadata": {
+        "description": "Virtual Machine OS Sku"
+      }
+    },
+
+    "dataDiskSize": {
+      "type": "string",
+      "defaultValue": "128",
+      "metadata": {
+        "description": "Size Of OS Disk"
+      }
+    }
+  },
+
+  "variables": {
+    "storageAccountName": "[concat(parameters('projectName'), 'storageaccount')]",
+    "virtualMachineName": "[concat(parameters('projectName'), '-VM')]",
+    "nicName": "[concat(variables('virtualMachineName'),'-NIC')]",
+    "hubVnetName": "[concat(parameters('projectName'),'-HUB-VNET')]",
+    "spokeVnetName": "[concat(parameters('projectName'),'-SPOKE1-VNET')]",
+    "bastionHostName": "[concat(parameters('projectName'),'-HUB-BASTION')]",
+    "bastionPiPName": "[concat(parameters('projectName'),'-BASTION-PIP')]",
+    "vnetPeeringHubSpoke": "[concat(variables('hubVnetName'),'-TO-',variables('spokeVnetName'))]",
+    "vnetPeeringSpokeHub": "[concat(variables('spokeVnetName'),'-TO-',variables('hubVnetName'))]",
+    "resourceGroup": "nestedTemplate"
+
+
+
+  },
+
+  "resources": [
+
+    {
+      "name": "storagelinkedTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('templateUri'),'?',parameters('templateSas'))]"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[variables('storageAccountName')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "vnetlinkedTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "dependsOn": [
+
+        "nsgLinkedTemplate"
+
+      ],
+
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('vnettemplateUri'),'?',parameters('vnettemplateSas'))]"
+        },
+
+        "parameters": {
+
+          "vnetName": {
+            "value": "[variables('hubVnetName')]"
+          },
+          "vnetAddressPrefix": {
+
+            "value": "[parameters('vnetAddressPrefix')]"
+          },
+
+          "subnet1Prefix": {
+            "value": "[parameters('hubBastionSubnetPrefix')]"
+          },
+
+          "subnet1Name": {
+            "value": "[parameters('hubBastionSubnetName')]"
+          },
+
+          "subnet2Prefix": {
+            "value": "[parameters('hubGatewaySubnetPrefix')]"
+          },
+
+          "subnet2Name": {
+            "value": "[parameters('hubGatewaySubnetName')]"
+          },
+
+          "subnet3Prefix": {
+            "value": "[parameters('hubADSubnetPrefix')]"
+          },
+
+          "subnet3Name": {
+            "value": "[parameters('hubADSubnetName')]"
+          },
+
+
+
+          "nsgId": {
+            "value": "[reference('nsglinkedTemplate').outputs.nsgResourceId.value]"
+          }
+        }
+      }
+    },
+
+
+
+    {
+      "name": "niclinkedTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('nictemplateUri'),'?',parameters('nictemplateSas'))]"
+        },
+
+        "parameters": {
+
+          "nicName": {
+            "value": "[variables('nicName')]"
+          },
+
+          "subnet3Ref": {
+
+            "value": "[reference('vnetlinkedTemplate').outputs.subnet3ResourceId.value]"
+          }
+
+        }
+      }
+    },
+
+    {
+      "name": "nsglinkedTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('nsgtemplateUri'),'?',parameters('nsgtemplateSas'))]"
+        },
+        "parameters": {
+          "nsgName": {
+            "value": "[parameters('nsgName')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        }
+      }
+    },
+
+    {
+      "name": "virtualMachineLinkedTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "dependsOn": [
+
+        "niclinkedTemplate",
+        "storagelinkedTemplate"
+
+      ],
+
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('virtualMachinetemplateUri'),'?',parameters('virtualMachinetemplateSas'))]"
+        },
+        "parameters": {
+          "virtualMachineName": {
+            "value": "[variables('virtualMachineName')]"
+          },
+          "localAdminUsername": {
+            "value": "[parameters('localAdminUsername')]"
+          },
+          "localAdminPassword": {
+            "value": "[parameters('localAdminPassword')]"
+          },
+          "vmSize": {
+            "value": "[parameters('vmSize')]"
+          },
+          "virtualMachineSku": {
+            "value": "[parameters('virtualMachineSku')]"
+          },
+          "dataDiskSize": {
+            "value": "[parameters('dataDiskSize')]"
+          },
+          "nicResourceId": {
+            "value": "[reference('niclinkedTemplate').outputs.nicResourceId.value]"
+          },
+          "diagStorageAccountName": {
+            "value": "[concat(parameters('projectName'),'diags')]"
+          }
+        }
+      }
+    },
+
+
+    {
+      "name": "bastionLinkedTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "dependsOn": [
+
+        "virtualMachineLinkedTemplate",
+        "vnetlinkedTemplate"
+
+      ],
+
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('bastiontemplateUri'),'?',parameters('bastiontemplateSas'))]"
+        },
+        "parameters": {
+
+          "bastionHostName": {
+            "value": "[variables('bastionHostName')]"
+          },
+          "bastionSubnet": {
+            "value": "[reference('vnetlinkedTemplate').outputs.subnet1ResourceId.value]"
+
+          },
+          "bastionPiPName": {
+            "value": "[variables('bastionPiPName')]"
+          }
+        }
+      }
+    },
+
+
+    {
+      "name": "spoke1LinkedTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "dependsOn": [
+
+        "vnetlinkedTemplate"
+
+      ],
+
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('vnettemplateUri'),'?',parameters('vnettemplateSas'))]"
+        },
+
+        "parameters": {
+
+          "vnetName": {
+            "value": "[variables('spokeVnetName')]"
+          },
+          "vnetAddressPrefix": {
+
+            "value": "[parameters('spoke1AddressPrefix')]"
+          },
+
+          "subnet1Prefix": {
+            "value": "[parameters('spoke1Subnet1Prefix')]"
+          },
+
+          "subnet1Name": {
+            "value": "[parameters('spoke1Subnet1Name')]"
+          },
+
+          "subnet2Prefix": {
+            "value": "[parameters('spoke1Subnet2Prefix')]"
+          },
+
+          "subnet2Name": {
+            "value": "[parameters('spoke1Subnet2Name')]"
+          },
+
+          "subnet3Prefix": {
+            "value": "[parameters('spoke1Subnet3Prefix')]"
+          },
+
+          "subnet3Name": {
+            "value": "[parameters('spoke1Subnet3Name')]"
+          },
+
+
+
+          "nsgId": {
+            "value": "[reference('nsglinkedTemplate').outputs.nsgResourceId.value]"
+          }
+        }
+      }
+    },
+
+
+
+    {
+      "name": "hubToSpokePeering",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "dependsOn": [
+
+        "vnetlinkedTemplate",
+        "spoke1LinkedTemplate"
+
+      ],
+
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('vnetPeeringtemplateUri'),'?',parameters('vnetPeeringtemplateSas'))]"
+        },
+
+        "parameters": {
+
+          "existingVnetName": {
+            "value": "[variables('hubVnetName')]"
+          },
+
+          "existingRemoteVnetName": {
+            "value": "[variables('spokeVnetName')]"
+          },
+
+          "existingRemoteVnetResourceGroup": {
+            "value": "[variables('resourceGroup')]"
+          }
+
+
+
+
+        }
+      }
+    }
+
+
+
+
+
+
+
+
+  ],
+  "outputs": {
+
+  }
+}
+  
