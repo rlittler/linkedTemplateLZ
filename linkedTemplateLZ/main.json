@@ -14,73 +14,73 @@
 
     "templateUri": {
       "type": "string",
-      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/storageaccount.json"
+      "defaultValue": ""
     },
     "templateSas": {
       "type": "securestring",
-      "defaultValue": "sp=r&st=2020-07-02T09:27:06Z&se=2021-03-10T18:27:06Z&spr=https&sv=2019-10-10&sr=b&sig=AfuQIn6afAHoKW9cnLKm69huNSDo0IrfaWFx3stCsIY%3D"
+      "defaultValue": ""
 
     },
 
     "vnettemplateUri": {
       "type": "string",
-      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/vnet.json"
+      "defaultValue": ""
     },
 
     "vnettemplateSas": {
       "type": "securestring",
-      "defaultValue": "sp=r&st=2020-07-02T09:14:57Z&se=2021-02-06T18:14:57Z&spr=https&sv=2019-10-10&sr=b&sig=N74D3o7K5NBnxtx7KOHihdJMCzGmX5Hk6Ie7Y5rhWEA%3D"
+      "defaultValue": ""
 
     },
     "nictemplateUri": {
       "type": "string",
-      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/nic.json"
+      "defaultValue": ""
     },
 
     "nictemplateSas": {
       "type": "securestring",
-      "defaultValue": "sp=r&st=2020-07-02T11:15:33Z&se=2021-03-31T19:15:33Z&spr=https&sv=2019-10-10&sr=b&sig=R3D%2BwTnXeI77crrG8GIM2hDrHWRcmcL1F%2FYwaeivGUQ%3D"
+      "defaultValue": ""
 
     },
 
     "nsgtemplateUri": {
       "type": "string",
-      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/nsg.json"
+      "defaultValue": ""
     },
 
     "nsgtemplateSas": {
       "type": "securestring",
-      "defaultValue": "sp=r&st=2020-07-07T10:13:44Z&se=2020-08-08T18:13:44Z&spr=https&sv=2019-10-10&sr=b&sig=tipvez8ooDWTLoMNKW%2BtEqYt4a8LGSolVOVhvx6Bvlk%3D"
+      "defaultValue": ""
 
     },
 
     "virtualMachinetemplateUri": {
       "type": "string",
-      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/virtualMachine.json"
+      "defaultValue": ""
     },
 
     "virtualMachinetemplateSas": {
       "type": "securestring",
-      "defaultValue": "sp=r&st=2020-07-08T16:44:30Z&se=2021-01-13T01:44:30Z&spr=https&sv=2019-10-10&sr=b&sig=G0aV3JGdjImQwQ1vH2tAS%2BL0ZSmFGXJJhmvNAggnNPA%3D"
+      "defaultValue": ""
 
     },
     "bastiontemplateUri": {
       "type": "string",
-      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/bastion.json"
+      "defaultValue": ""
     },
 
     "bastiontemplateSas": {
       "type": "securestring",
-      "defaultValue": "sp=r&st=2020-07-09T14:30:35Z&se=2021-02-04T23:30:35Z&spr=https&sv=2019-10-10&sr=b&sig=%2Bfnj1omkYGhem2%2FWoEOhRvXJnJhS3pg87OAzoYZL5pU%3D"
+      "defaultValue": ""
 
     },
     "vnetPeeringtemplateUri": {
       "type": "string",
-      "defaultValue": "https://storage2042828775.blob.core.windows.net/linkedtemplates/vnetPeering.json"
+      "defaultValue": ""
     },
     "vnetPeeringtemplateSas": {
       "type": "securestring",
-      "defaultValue": "sp=r&st=2020-07-27T14:17:28Z&se=2021-06-29T22:17:28Z&spr=https&sv=2019-12-12&sr=b&sig=igfuFdZ%2B4faEgiL8h39paDW6q9q43w0sFF8MrMvkzKg%3D"
+      "defaultValue": ""
 
     },
 
